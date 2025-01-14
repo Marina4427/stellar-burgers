@@ -2,6 +2,7 @@ import { getOrderByNumberApi, getOrdersApi, orderBurgerApi } from '@api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 import { RootState } from '../store';
+import { burgerConstructorActions } from '../../services/slices/burger-constructor-slice';
 
 type TOrdersState = {
   orders: TOrder[];

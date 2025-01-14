@@ -32,17 +32,20 @@ export const BurgerConstructor: FC = () => {
     }
     return () => {
       if (orderModalData) {
-        localStorage.removeItem('orderId');
         dispatch(orderActions.clearOrderModalDataAction());
-        dispatch(burgerConstructorActions.clearIngredients());
       }
     };
   }, [dispatch, user, orderModalData]);
 
+  useEffect(() => {
+    if (orderModalData) {
+      dispatch(burgerConstructorActions.clearIngredients());
+      localStorage.removeItem('orderId');
+    }
+  }, [orderModalData, dispatch]);
+
   const closeOrderModal = () => {
     dispatch(orderActions.clearOrderModalDataAction());
-    dispatch(burgerConstructorActions.clearIngredients());
-    localStorage.removeItem('orderId');
   };
 
   //Функция для обработки нажатия кнопки "Оформить заказ".
