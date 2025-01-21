@@ -1,20 +1,40 @@
 import { setCookie, getCookie } from './cookie';
-import { TIngredient, TOrder, TOrdersData, TUser } from './types';
+import { TIngredient, TOrder, TUser } from './types';
 
 const URL = process.env.BURGER_API_URL;
 
+/**
+ * Функция для проверки ответа сервера.
+ * Если ответ успешен (res.ok), возвращает распарсенные данные в формате JSON.
+ * В противном случае возвращает отклоненное обещание с ошибкой.
+ *
+ * @param {Response} res - Ответ от сервера.
+ * @returns {Promise<T>} - Обещание с данными или ошибкой.
+ */
 const checkResponse = <T>(res: Response): Promise<T> =>
   res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 
+/**
+ * Общий тип ответа от сервера с полем успеха.
+ */
 type TServerResponse<T> = {
   success: boolean;
 } & T;
 
+/**
+ * Тип ответа для обновления токенов доступа и обновления.
+ */
 type TRefreshResponse = TServerResponse<{
   refreshToken: string;
   accessToken: string;
 }>;
 
+/**
+ * Функция для обновления токена доступа.
+ * Запрашивает новый токен доступа и обновления, сохраняет их и возвращает.
+ *
+ * @returns {Promise<TRefreshResponse>} - Обещание с новыми токенами.
+ */
 export const refreshToken = (): Promise<TRefreshResponse> =>
   fetch(`${URL}/auth/token`, {
     method: 'POST',
@@ -35,6 +55,14 @@ export const refreshToken = (): Promise<TRefreshResponse> =>
       return refreshData;
     });
 
+/**
+ * Функция для выполнения запроса с автоматическим обновлением токена при необходимости.
+ * Если токен истек, функция автоматически обновляет его и повторяет запрос.
+ *
+ * @param {RequestInfo} url - URL для запроса.
+ * @param {RequestInit} options - Настройки запроса.
+ * @returns {Promise<T>} - Обещание с данными ответа.
+ */
 export const fetchWithRefresh = async <T>(
   url: RequestInfo,
   options: RequestInit
@@ -67,10 +95,6 @@ type TFeedsResponse = TServerResponse<{
   totalToday: number;
 }>;
 
-type TOrdersResponse = TServerResponse<{
-  data: TOrder[];
-}>;
-
 export const getIngredientsApi = () =>
   fetch(`${URL}/ingredients`)
     .then((res) => checkResponse<TIngredientsResponse>(res))
@@ -99,7 +123,7 @@ export const getOrdersApi = () =>
     return Promise.reject(data);
   });
 
-type TNewOrderResponse = TServerResponse<{
+export type TNewOrderResponse = TServerResponse<{
   order: TOrder;
   name: string;
 }>;
@@ -137,7 +161,7 @@ export type TRegisterData = {
   password: string;
 };
 
-type TAuthResponse = TServerResponse<{
+export type TAuthResponse = TServerResponse<{
   refreshToken: string;
   accessToken: string;
   user: TUser;
