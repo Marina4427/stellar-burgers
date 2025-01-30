@@ -35,6 +35,8 @@ export const LoginUI: FC<LoginUIProps> = ({
               error={false}
               errorText=''
               size='default'
+              onPointerEnterCapture={() => {}} // Добавляем заглушки
+              onPointerLeaveCapture={() => {}}
             />
           </div>
           <div className='pb-6'>
