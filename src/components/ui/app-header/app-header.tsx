@@ -17,50 +17,44 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
         <NavLink
           to='/'
           className={({ isActive }) =>
-            `${styles.link} ${isActive ? styles.link_active : ''}`
+            clsx(styles.link, {
+              [styles.link_active]: isActive
+            })
           }
         >
-          {({ isActive }) => (
-            <>
-              <BurgerIcon type={isActive ? 'primary' : 'secondary'} />
-              <p className='text text_type_main-default ml-2 mr-10'>
-                Конструктор
-              </p>
-            </>
-          )}
+          <BurgerIcon type={'primary'} />
+          <p className='text text_type_main-default ml-2 mr-10'>Конструктор</p>
         </NavLink>
         <NavLink
           to='/feed'
           className={({ isActive }) =>
-            `${styles.link} ${isActive ? styles.link_active : ''}`
+            clsx(styles.link, {
+              [styles.link_active]: isActive
+            })
           }
         >
-          {({ isActive }) => (
-            <>
-              <ListIcon type={isActive ? 'primary' : 'secondary'} />
-              <p className='text text_type_main-default ml-2'>Лента заказов</p>
-            </>
-          )}
+          <ListIcon type={'primary'} />
+          <p className='text text_type_main-default ml-2'>Лента заказов</p>
         </NavLink>
       </div>
       <div className={styles.logo}>
-        <Logo className='' />
+        <NavLink to='/'>
+          <Logo className='' />
+        </NavLink>
       </div>
       <div className={styles.link_position_last}>
         <NavLink
           to='/profile'
           className={({ isActive }) =>
-            `${styles.link} ${isActive ? styles.link_active : ''}`
+            clsx(styles.link, {
+              [styles.link_active]: isActive
+            })
           }
         >
-          {({ isActive }) => (
-            <>
-              <ProfileIcon type={isActive ? 'primary' : 'secondary'} />
-              <p className='text text_type_main-default ml-2'>
-                {userName || 'Личный кабинет'}
-              </p>
-            </>
-          )}
+          <ProfileIcon type={'primary'} />
+          <p className='text text_type_main-default ml-2'>
+            {userName || 'Личный кабинет'}
+          </p>
         </NavLink>
       </div>
     </nav>

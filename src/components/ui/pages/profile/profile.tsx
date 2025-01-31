@@ -35,6 +35,8 @@ export const ProfileUI: FC<ProfileUIProps> = ({
             errorText={''}
             size={'default'}
             icon={'EditIcon'}
+            onPointerEnterCapture={() => {}} // Добавляем заглушки
+            onPointerLeaveCapture={() => {}}
           />
         </div>
         <div className='pb-6'>
@@ -48,6 +50,8 @@ export const ProfileUI: FC<ProfileUIProps> = ({
             errorText={''}
             size={'default'}
             icon={'EditIcon'}
+            onPointerEnterCapture={() => {}} // Добавляем заглушки
+            onPointerLeaveCapture={() => {}}
           />
         </div>
         <div className='pb-6'>
@@ -61,6 +65,8 @@ export const ProfileUI: FC<ProfileUIProps> = ({
             errorText={''}
             size={'default'}
             icon={'EditIcon'}
+            onPointerEnterCapture={() => {}} // Добавляем заглушки
+            onPointerLeaveCapture={() => {}}
           />
         </div>
         {isFormChanged && (

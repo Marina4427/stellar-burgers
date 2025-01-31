@@ -20,15 +20,9 @@
 }
 
 .detailPageWrap {
-  margin: 120px auto 0;
+  margin: 120px auto;
 }
 
 .detailHeader {
   text-align: center;
-  font-family: Iceland;
-  font-weight: 400;
-  font-size: 28px;
-  line-height: 0.86em;
-  padding-block: 20px;
 }
-
